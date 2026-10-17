@@ -1,0 +1,55 @@
+# Breast Cancer Prognosis and Survival Analysis
+
+A clinical machine-learning and statistical study evaluating prognostic risk factors and patient survival classification using hospital records.
+
+## Project Overview
+
+This capstone project investigates clinical, pathological, and demographic predictors of breast cancer mortality. Using multivariable statistical modeling and supervised machine learning, the analysis identifies primary risk drivers, quantifies protective clinical markers, and assesses how well binary classification models perform as screening tools.
+
+## Dataset
+
+- Source: Mendeley Data, Epic Hospital Cohort (Hira and Towsif, 2025)
+- Cohort Size: N = 2,481 cleaned patient records across 34 variables
+- Target Outcome: overall_survival (Living vs. Deceased)
+- Class Distribution: 61.87% Deceased (n = 1,535), 38.13% Living (n = 946)
+
+## Analytical Pipeline
+
+The analysis was carried out in four stages:
+
+1. Exploratory data analysis, checking distributions, missing values, and Spearman rank correlations.
+2. Multivariable binomial generalized linear modeling (GLM) to measure adjusted odds ratios while controlling for confounding clinical variables.
+3. Bayesian network modeling to evaluate conditional dependencies and upstream pathways (such as tumor stage acting through tumor size and lymph nodes).
+4. Supervised classification using logistic regression on an 80/20 train-test split (n = 497 test set).
+
+## Key Results
+
+The multivariable GLM identified several clear patterns:
+
+- Positive lymph nodes: Each extra positive node raised mortality odds by 11.2% (AOR = 1.112, p < .001).
+- Age at diagnosis: Raised mortality odds by 3.5% per additional year (AOR = 1.035, p < .001).
+- Histological grade: Increased mortality odds by 20.3% per grade level (AOR = 1.203, p = .0234).
+- Tumor size: Modest increase of 1.8% per millimeter (AOR = 1.018, p < .001).
+- Progesterone receptor positive status: Provided an independent protective benefit, lowering mortality odds by 31.7% (AOR = 0.683, p = .0007).
+
+On the held-out test set, the logistic regression model reached 63.38% accuracy and an ROC-AUC of 0.695. It prioritized sensitivity over specificity, identifying 83.06% of actual deceased patients (255 of 307) while correctly identifying only 31.58% of living patients (60 of 190). The high false-alarm rate means it cannot make diagnostic calls on its own, but its high sensitivity makes it suitable as an early screening tool to flag aggressive cases.
+
+## Repository Contents
+
+- breast_cancer_prognosis_analysis.ipynb: Main notebook with data cleaning, EDA, GLM, machine learning, and figures.
+- README.md: Summary of project methods and results.
+
+## Requirements
+
+The notebook runs in Google Colab or locally with Python 3.9+ and standard scientific packages: numpy, pandas, scipy, statsmodels, scikit-learn, matplotlib, and seaborn.
+
+## References
+
+- Agresti, A., and Kateri, M. (2022). Foundations of statistics for data scientists: With R and Python. CRC Press.
+- Hira, M. I. K., and Towsif, A. A. (2025). Primary breast cancer clinical dataset from Epic Hospital (Breast_Cancer_METABRIC_Epic_Hospital) (Version 4) [Data set]. Mendeley Data.
+- Narod, S. A. (2012). Tumour size predicts long-term survival among women with lymph node-positive breast cancer. Current Oncology, 19(5), 249-253.
+- Sopik, V., and Narod, S. A. (2018). The relationship between tumour size, nodal status and distant metastases: On the origins of breast cancer. Breast Cancer Research and Treatment, 170(3), 647-656.
+
+## AI Disclosure
+
+Gemini (Google, 2026) was used as an interactive tool to assist with reviewing text for this ReadME file. All data analysis, results, and conclusions were verified and completed by the authors.
